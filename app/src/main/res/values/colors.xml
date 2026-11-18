@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1E293B</color>
+    <color name="primary_dark">#0F172A</color>
+    <color name="accent_globalindo">#C2412D</color>
+    <color name="accent_multipack">#8A5A2B</color>
+    <color name="accent_hte">#2F6F8F</color>
+    <color name="accent_maxtech">#D99A1E</color>
+    <color name="accent_sinarjaya">#A8721F</color>
+    <color name="accent_topprinting">#C94C6E</color>
+</resources>
