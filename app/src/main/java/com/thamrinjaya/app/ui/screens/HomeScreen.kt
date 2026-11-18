@@ -8,16 +8,29 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.drawBehind
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
+import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.thamrinjaya.app.R
@@ -42,107 +55,115 @@ fun HomeScreen(
                 subtitle = "Portal Utama Penghubung",
                 logoResId = R.drawable.logo_thamrin_jaya,
                 onLogoClick = onNavigateToAdmin,
+                subtitleColor = GroupAccent,
                 onMenuClick = onOpenMenu
             )
         },
-        containerColor = Slate50
+        containerColor = PageBackground
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            contentPadding = PaddingValues(bottom = 32.dp)
+            contentPadding = PaddingValues(16.dp),
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            // Hero Section
+            // Hero v2 — kartu hitam
             item {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(White)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(Slate900)
                         .padding(20.dp)
                 ) {
                     Column {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Box(
-                                modifier = Modifier
-                                    .width(14.dp)
-                                    .height(3.dp)
-                                    .background(Slate900)
-                            )
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text(
-                                text = ThamrinJayaData.HOLDING_SUBTITLE,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = Slate700,
-                                letterSpacing = 0.5.sp
-                            )
-                        }
+                        Text(
+                            text = "SATU GRUP. BANYAK KEMUNGKINAN.",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = White,
+                            letterSpacing = 1.2.sp
+                        )
 
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Text(
                             text = ThamrinJayaData.HOLDING_SLOGAN,
-                            fontSize = 22.sp,
+                            fontSize = 28.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Slate900,
-                            lineHeight = 28.sp
+                            color = White,
+                            lineHeight = 34.sp
                         )
 
                         Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
                             text = ThamrinJayaData.HOLDING_OVERVIEW,
-                            fontSize = 13.sp,
-                            color = Slate600,
+                            fontSize = 14.sp,
+                            color = Slate300,
                             lineHeight = 20.sp
                         )
 
                         Spacer(modifier = Modifier.height(18.dp))
 
-                        Row(
-                            modifier = Modifier.fillMaxWidth(),
-                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        // Tombol "Lihat 6 Unit Bisnis" membuka menu switcher unit
+                        // (aksi yang tersedia lewat callback yang sudah ada).
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(48.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(White)
+                                .clickable { onOpenMenu() },
+                            contentAlignment = Alignment.Center
                         ) {
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(44.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .background(Slate900)
-                                    .clickable {
-                                        IntentUtils.openWhatsApp(
-                                            context,
-                                            ThamrinJayaData.HOLDING_WHATSAPP,
-                                            "Halo Thamrin Jaya Group, saya ingin informasi seputar holding dan unit bisnis."
-                                        )
-                                    },
-                                contentAlignment = Alignment.Center
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
                             ) {
                                 Text(
-                                    text = "💬 WhatsApp Hotline",
-                                    color = White,
-                                    fontSize = 12.sp,
+                                    text = "Lihat 6 Unit Bisnis",
+                                    color = Slate900,
+                                    fontSize = 14.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
+                                Icon(
+                                    imageVector = Icons.Default.KeyboardArrowDown,
+                                    contentDescription = null,
+                                    tint = Slate900,
+                                    modifier = Modifier.size(18.dp)
+                                )
                             }
+                        }
 
-                            Box(
-                                modifier = Modifier
-                                    .weight(1f)
-                                    .height(44.dp)
-                                    .clip(RoundedCornerShape(8.dp))
-                                    .border(1.dp, Slate300, RoundedCornerShape(8.dp))
-                                    .background(White)
-                                    .clickable {
-                                        IntentUtils.openMapLocation(context, ThamrinJayaData.HOLDING_ADDRESS)
-                                    },
-                                contentAlignment = Alignment.Center
+                        Spacer(modifier = Modifier.height(10.dp))
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(48.dp)
+                                .clip(RoundedCornerShape(12.dp))
+                                .background(White)
+                                .clickable {
+                                    IntentUtils.openMapLocation(context, ThamrinJayaData.HOLDING_ADDRESS)
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(6.dp)
                             ) {
+                                Icon(
+                                    imageVector = Icons.Default.LocationOn,
+                                    contentDescription = null,
+                                    tint = Slate900,
+                                    modifier = Modifier.size(18.dp)
+                                )
                                 Text(
-                                    text = "📍 Peta Lokasi Group",
-                                    color = Slate800,
-                                    fontSize = 12.sp,
+                                    text = "Peta Lokasi Grup",
+                                    color = Slate900,
+                                    fontSize = 14.sp,
                                     fontWeight = FontWeight.SemiBold
                                 )
                             }
@@ -151,181 +172,167 @@ fun HomeScreen(
                 }
             }
 
-            // Section 1: Pintasan Fitur Utama
+            // Section: Trust — slot logo diisi logo 6 unit bisnis yang ada
             item {
-                Column(modifier = Modifier.padding(horizontal = 20.dp, vertical = 20.dp)) {
-                    Text(
-                        text = "PINTASAN FITUR UTAMA",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Slate500,
-                        letterSpacing = 0.5.sp
+                Column {
+                    SectionHeader(
+                        overline = "DIPERCAYA INDUSTRI",
+                        overlineColor = GroupAccent,
+                        title = "Klien & sertifikasi",
+                        subtitle = "Logo klien utama dan sertifikasi mutu dari unit bisnis kami."
                     )
-                    Text(
-                        text = "Eksplorasi Transparansi Layanan & Operasional:",
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Slate700
-                    )
-
                     Spacer(modifier = Modifier.height(12.dp))
-
-                    // Fitur 1: Katalog & Spesifikasi
-                    FeatureShortcutCard(
-                        icon = "📦",
-                        tag = "FITUR 01 • SPESIFIKASI & MOQ",
-                        title = "Katalog Produk & Spesifikasi Transparan",
-                        desc = "Buka rincian bahan material, gramatur, toleransi dimensi, minimal order (MOQ), dan lead time tanpa biaya tersembunyi.",
-                        action = "Buka Halaman Produk & Spesifikasi ↗",
-                        onClick = {
-                            val defaultCo = ThamrinJayaData.companies.first()
-                            onNavigateToCompany(defaultCo, 1)
+                    ThamrinJayaData.companies.chunked(3).forEach { rowCompanies ->
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                        ) {
+                            rowCompanies.forEach { company ->
+                                Box(
+                                    modifier = Modifier
+                                        .weight(1f)
+                                        .height(84.dp)
+                                        .clip(RoundedCornerShape(12.dp))
+                                        .background(White)
+                                        .dashedBorder(Slate300, 12.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                        Image(
+                                            painter = painterResource(id = company.logoResId),
+                                            contentDescription = company.name,
+                                            modifier = Modifier.size(38.dp),
+                                            contentScale = ContentScale.Fit
+                                        )
+                                        Text(
+                                            text = company.shortName,
+                                            fontSize = 11.sp,
+                                            fontWeight = FontWeight.Medium,
+                                            color = Slate600,
+                                            modifier = Modifier.padding(top = 4.dp),
+                                            maxLines = 1
+                                        )
+                                    }
+                                }
+                            }
+                            repeat(3 - rowCompanies.size) {
+                                Spacer(modifier = Modifier.weight(1f))
+                            }
                         }
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    // Fitur 2: Alur Proses & QC
-                    FeatureShortcutCard(
-                        icon = "⚙️",
-                        tag = "FITUR 02 • STANDAR MUTU & SLA",
-                        title = "Alur Proses Produksi & Transparansi QC",
-                        desc = "Tinjau alur 5 tahapan kerja mulai dari konsultasi, dummy proofing, cetak offset, die-cut hingga checklist jaminan mutu kelayakan.",
-                        action = "Buka Halaman Alur Proses & QC ↗",
-                        onClick = {
-                            val defaultCo = ThamrinJayaData.companies.first()
-                            onNavigateToCompany(defaultCo, 2)
-                        }
-                    )
-
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    // Fitur 3: Kontak & Lokasi
-                    FeatureShortcutCard(
-                        icon = "📍",
-                        tag = "FITUR 03 • SALURAN LANGSUNG & PETA",
-                        title = "Kontak Resmi, WhatsApp & Lokasi Pabrik",
-                        desc = "Akses kontak langsung WhatsApp sales respon cepat (<15 menit), telepon kantor, alamat fisik pabrik dan rute Google Maps GPS.",
-                        action = "Buka Halaman Kontak & Lokasi Pabrik ↗",
-                        onClick = {
-                            val defaultCo = ThamrinJayaData.companies.first()
-                            onNavigateToCompany(defaultCo, 3)
-                        }
-                    )
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
                 }
             }
 
-            // Section 2: Direktori 6 Profil Perusahaan
+            // Section: Direktori 6 Unit Bisnis
             item {
-                Column(modifier = Modifier.padding(horizontal = 20.dp)) {
-                    Text(
-                        text = "DIREKTORI 6 PROFIL PERUSAHAAN",
-                        fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Slate500,
-                        letterSpacing = 0.5.sp
-                    )
-                    Text(
-                        text = "Pilih unit bisnis untuk membuka profil & layanan spesifik:",
-                        fontSize = 13.sp,
-                        color = Slate700
-                    )
-                    Spacer(modifier = Modifier.height(12.dp))
-                }
+                SectionHeader(
+                    overline = "UNIT BISNIS",
+                    overlineColor = GroupAccent,
+                    title = "Enam unit bisnis kami",
+                    subtitle = "Pilih unit bisnis untuk membuka profil & layanan spesifik:"
+                )
             }
 
             items(ThamrinJayaData.companies) { company ->
                 CompanyDirectoryCard(
                     company = company,
-                    onOpenProfile = { onNavigateToCompany(company, 0) },
-                    onWhatsApp = {
-                        IntentUtils.openWhatsApp(
-                            context,
-                            company.whatsapp,
-                            "Halo ${company.name}, saya ingin konsultasi mengenai layanan ${company.category}."
-                        )
-                    },
-                    onMap = {
-                        IntentUtils.openMapLocation(context, company.address)
-                    },
-                    modifier = Modifier.padding(horizontal = 20.dp, vertical = 6.dp)
+                    onOpenProfile = { onNavigateToCompany(company, 0) }
                 )
             }
 
-            // Section 3: Sinergi Ekosistem
+            // Section: Ekosistem
             item {
                 Box(
                     modifier = Modifier
-                        .padding(horizontal = 20.dp, vertical = 14.dp)
                         .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .border(1.dp, Slate200, RoundedCornerShape(12.dp))
-                        .background(White)
-                        .padding(18.dp)
+                        .clip(RoundedCornerShape(16.dp))
+                        .background(GroupAccentSubtle)
+                        .padding(20.dp)
                 ) {
                     Column {
                         Text(
-                            text = "SINERGI & EKOSISTEM THAMRIN JAYA GROUP",
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Slate500,
-                            letterSpacing = 0.5.sp
+                            text = "EKOSISTEM TERPADU",
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.SemiBold,
+                            color = GroupAccent,
+                            letterSpacing = 1.2.sp
                         )
                         Text(
-                            text = "06 Unit Bisnis Terpadu • 01 Semangat Kolaborasi",
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
+                            text = "6 unit bisnis, 1 ekosistem",
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.SemiBold,
                             color = Slate900,
                             modifier = Modifier.padding(top = 4.dp, bottom = 6.dp)
                         )
                         Text(
                             text = "Menghubungkan rantai pasok industri dari bahan baku, produksi kemasan, hingga mesin industri rokok dalam satu holding.",
-                            fontSize = 12.sp,
-                            color = Slate600,
-                            lineHeight = 18.sp
+                            fontSize = 14.sp,
+                            color = Slate700,
+                            lineHeight = 20.sp
                         )
                     }
                 }
             }
 
-            // Section 4: Kantor Pusat & Info
+            // Section: Kantor Pusat
             item {
-                Box(
-                    modifier = Modifier
-                        .padding(horizontal = 20.dp, vertical = 6.dp)
-                        .fillMaxWidth()
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Slate900)
-                        .padding(18.dp)
-                ) {
-                    Column {
-                        Text(
-                            text = "KANTOR PUSAT & LAYANAN TERPADU:",
-                            fontSize = 11.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Slate400,
-                            letterSpacing = 0.5.sp
-                        )
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Text(
-                            text = ThamrinJayaData.HOLDING_ADDRESS,
-                            fontSize = 12.sp,
-                            color = White,
-                            lineHeight = 18.sp
-                        )
-                        Spacer(modifier = Modifier.height(10.dp))
-                        Text(
-                            text = "📞 Telp: ${ThamrinJayaData.HOLDING_PHONE} | ✉️ ${ThamrinJayaData.HOLDING_EMAIL}",
-                            fontSize = 12.sp,
-                            color = Slate300
-                        )
-                        Text(
-                            text = ThamrinJayaData.HOLDING_HOURS,
-                            fontSize = 11.sp,
-                            color = Slate400,
-                            modifier = Modifier.padding(top = 4.dp)
-                        )
+                Column {
+                    SectionHeader(
+                        overline = "KANTOR PUSAT",
+                        overlineColor = GroupAccent,
+                        title = "Pusat Bisnis Thamrin Jaya"
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .clip(RoundedCornerShape(16.dp))
+                            .border(1.dp, Slate200, RoundedCornerShape(16.dp))
+                            .background(White)
+                            .padding(horizontal = 16.dp, vertical = 6.dp)
+                    ) {
+                        Column {
+                            HoldingInfoRow(
+                                icon = Icons.Default.LocationOn,
+                                label = "Alamat",
+                                value = ThamrinJayaData.HOLDING_ADDRESS,
+                                showChevron = true,
+                                onClick = {
+                                    IntentUtils.openMapLocation(context, ThamrinJayaData.HOLDING_ADDRESS)
+                                }
+                            )
+                            HorizontalDivider(color = Slate200)
+                            HoldingInfoRow(
+                                icon = Icons.Default.Phone,
+                                label = "Telepon",
+                                value = ThamrinJayaData.HOLDING_PHONE,
+                                showChevron = true,
+                                onClick = {
+                                    IntentUtils.openDialer(context, ThamrinJayaData.HOLDING_PHONE)
+                                }
+                            )
+                            HorizontalDivider(color = Slate200)
+                            HoldingInfoRow(
+                                icon = Icons.Default.Email,
+                                label = "Email",
+                                value = ThamrinJayaData.HOLDING_EMAIL,
+                                showChevron = true,
+                                onClick = {
+                                    IntentUtils.openEmail(context, ThamrinJayaData.HOLDING_EMAIL, "Inquiry Thamrin Jaya Group")
+                                }
+                            )
+                            HorizontalDivider(color = Slate200)
+                            HoldingInfoRow(
+                                icon = Icons.Default.Schedule,
+                                label = "Jam operasional",
+                                value = ThamrinJayaData.HOLDING_HOURS,
+                                showChevron = false,
+                                onClick = null
+                            )
+                        }
                     }
+                    Spacer(modifier = Modifier.height(12.dp))
                 }
             }
         }
@@ -333,60 +340,33 @@ fun HomeScreen(
 }
 
 @Composable
-private fun FeatureShortcutCard(
-    icon: String,
-    tag: String,
+fun SectionHeader(
+    overline: String,
+    overlineColor: Color,
     title: String,
-    desc: String,
-    action: String,
-    onClick: () -> Unit
+    subtitle: String? = null
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .border(1.dp, Slate200, RoundedCornerShape(12.dp))
-            .background(White)
-            .clickable { onClick() }
-            .padding(16.dp)
-    ) {
-        Column {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = icon, fontSize = 18.sp)
-                Spacer(modifier = Modifier.width(8.dp))
-                Column {
-                    Text(
-                        text = tag,
-                        fontSize = 10.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Slate500,
-                        letterSpacing = 0.5.sp
-                    )
-                    Text(
-                        text = title,
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Slate900
-                    )
-                }
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-
+    Column {
+        Text(
+            text = overline.uppercase(),
+            fontSize = 12.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = overlineColor,
+            letterSpacing = 1.2.sp
+        )
+        Text(
+            text = title,
+            fontSize = 18.sp,
+            fontWeight = FontWeight.SemiBold,
+            color = Slate900,
+            modifier = Modifier.padding(top = 2.dp)
+        )
+        if (subtitle != null) {
             Text(
-                text = desc,
-                fontSize = 12.sp,
+                text = subtitle,
+                fontSize = 14.sp,
                 color = Slate600,
-                lineHeight = 18.sp
-            )
-
-            Spacer(modifier = Modifier.height(10.dp))
-
-            Text(
-                text = action,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
-                color = Slate900
+                modifier = Modifier.padding(top = 2.dp)
             )
         }
     }
@@ -396,32 +376,17 @@ private fun FeatureShortcutCard(
 private fun CompanyDirectoryCard(
     company: Company,
     onOpenProfile: () -> Unit,
-    onWhatsApp: () -> Unit,
-    onMap: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(12.dp))
-            .border(1.dp, Slate200, RoundedCornerShape(12.dp))
+            .clip(RoundedCornerShape(16.dp))
+            .border(1.dp, Slate200, RoundedCornerShape(16.dp))
             .background(White)
             .padding(16.dp)
     ) {
         Column {
-            if (company.heroImageResId != null) {
-                Image(
-                    painter = painterResource(id = company.heroImageResId),
-                    contentDescription = company.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(130.dp)
-                        .clip(RoundedCornerShape(8.dp)),
-                    contentScale = ContentScale.Crop
-                )
-                Spacer(modifier = Modifier.height(12.dp))
-            }
-
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth()
@@ -430,105 +395,151 @@ private fun CompanyDirectoryCard(
                     painter = painterResource(id = company.logoResId),
                     contentDescription = company.name,
                     modifier = Modifier
-                        .size(36.dp)
-                        .clip(RoundedCornerShape(8.dp))
-                        .border(1.dp, Slate200, RoundedCornerShape(8.dp)),
+                        .size(56.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .border(1.dp, Slate200, RoundedCornerShape(12.dp)),
                     contentScale = ContentScale.Fit
                 )
-                Spacer(modifier = Modifier.width(10.dp))
+                Spacer(modifier = Modifier.width(12.dp))
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
                         text = company.name,
-                        fontSize = 14.sp,
+                        fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         color = Slate900
                     )
                     Text(
-                        text = "${company.category} • ${company.slogan}",
-                        fontSize = 11.sp,
-                        color = Slate500,
-                        maxLines = 1
+                        text = company.category.uppercase(),
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        color = company.accentColor,
+                        letterSpacing = 1.sp,
+                        modifier = Modifier.padding(top = 2.dp)
                     )
                 }
             }
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
             Text(
                 text = company.description,
-                fontSize = 12.sp,
+                fontSize = 14.sp,
                 color = Slate600,
-                lineHeight = 18.sp
+                lineHeight = 20.sp
             )
 
-            Spacer(modifier = Modifier.height(6.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-            Text(
-                text = "📍 ${company.area}",
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Medium,
-                color = Slate500
-            )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(
+                    imageVector = Icons.Default.LocationOn,
+                    contentDescription = null,
+                    tint = Slate500,
+                    modifier = Modifier.size(14.dp)
+                )
+                Spacer(modifier = Modifier.width(4.dp))
+                Text(
+                    text = company.area,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Slate500
+                )
+            }
 
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(14.dp))
 
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(44.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Slate100)
+                    .clickable { onOpenProfile() },
+                contentAlignment = Alignment.Center
             ) {
-                Box(
-                    modifier = Modifier
-                        .weight(1.5f)
-                        .height(36.dp)
-                        .clip(RoundedCornerShape(6.dp))
-                        .background(company.accentColor)
-                        .clickable { onOpenProfile() },
-                    contentAlignment = Alignment.Center
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Text(
-                        text = "Buka Profil Unit ↗",
-                        color = White,
-                        fontSize = 12.sp,
+                        text = "Buka Profil Unit",
+                        color = Slate900,
+                        fontSize = 13.sp,
                         fontWeight = FontWeight.SemiBold
                     )
-                }
-
-                Box(
-                    modifier = Modifier
-                        .weight(1f)
-                        .height(36.dp)
-                        .clip(RoundedCornerShape(6.dp))
-                        .border(1.dp, Slate200, RoundedCornerShape(6.dp))
-                        .background(White)
-                        .clickable { onWhatsApp() },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "💬 WA",
-                        color = Slate800,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium
-                    )
-                }
-
-                Box(
-                    modifier = Modifier
-                        .weight(0.9f)
-                        .height(36.dp)
-                        .clip(RoundedCornerShape(6.dp))
-                        .border(1.dp, Slate200, RoundedCornerShape(6.dp))
-                        .background(White)
-                        .clickable { onMap() },
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = "📍 Peta",
-                        color = Slate800,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowRight,
+                        contentDescription = null,
+                        tint = Slate900,
+                        modifier = Modifier.size(18.dp)
                     )
                 }
             }
         }
     }
+}
+
+@Composable
+private fun HoldingInfoRow(
+    icon: ImageVector,
+    label: String,
+    value: String,
+    showChevron: Boolean,
+    onClick: (() -> Unit)?
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .then(if (onClick != null) Modifier.clickable { onClick() } else Modifier)
+            .padding(vertical = 12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(40.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(GroupAccentSubtle),
+            contentAlignment = Alignment.Center
+        ) {
+            Icon(
+                imageVector = icon,
+                contentDescription = null,
+                tint = GroupAccent,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+        Spacer(modifier = Modifier.width(12.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = label,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold,
+                color = Slate900
+            )
+            Text(
+                text = value,
+                fontSize = 13.sp,
+                color = Slate600
+            )
+        }
+        if (showChevron) {
+            Icon(
+                imageVector = Icons.Default.KeyboardArrowRight,
+                contentDescription = null,
+                tint = Slate400,
+                modifier = Modifier.size(20.dp)
+            )
+        }
+    }
+}
+
+private fun Modifier.dashedBorder(color: Color, cornerRadius: Dp): Modifier = drawBehind {
+    drawRoundRect(
+        color = color,
+        cornerRadius = CornerRadius(cornerRadius.toPx()),
+        style = Stroke(
+            width = 1.dp.toPx(),
+            pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 8f), 0f)
+        )
+    )
 }

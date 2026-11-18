@@ -6,26 +6,28 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
+// UI v2 — skala tipografi Figma (dirancang untuk Inter).
+// File font Inter biner tidak ikut dibundel, jadi FontFamily tetap Default.
 val Typography = Typography(
-    headlineLarge = TextStyle(
+    headlineLarge = TextStyle( // Display 28 Bold
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
-        fontSize = 24.sp,
-        lineHeight = 32.sp
+        fontSize = 28.sp,
+        lineHeight = 34.sp
     ),
     headlineMedium = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
-        lineHeight = 28.sp
+        fontSize = 24.sp,
+        lineHeight = 30.sp
     ),
-    titleLarge = TextStyle(
+    titleLarge = TextStyle( // Heading H2 18 SemiBold
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.SemiBold,
         fontSize = 18.sp,
         lineHeight = 24.sp
     ),
-    titleMedium = TextStyle(
+    titleMedium = TextStyle( // Heading H3 16 SemiBold
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.SemiBold,
         fontSize = 16.sp,
@@ -33,44 +35,45 @@ val Typography = Typography(
     ),
     titleSmall = TextStyle(
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
+        fontWeight = FontWeight.SemiBold,
         fontSize = 14.sp,
         lineHeight = 20.sp
     ),
-    bodyLarge = TextStyle(
+    bodyLarge = TextStyle( // Body/Default 15 Regular
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 15.sp,
         lineHeight = 22.sp
     ),
-    bodyMedium = TextStyle(
+    bodyMedium = TextStyle( // Body/Small 14 Regular
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 13.sp,
-        lineHeight = 19.sp
+        fontSize = 14.sp,
+        lineHeight = 20.sp
     ),
-    bodySmall = TextStyle(
+    bodySmall = TextStyle( // Caption 12 Regular
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
-        fontSize = 11.sp,
+        fontSize = 12.sp,
         lineHeight = 16.sp
     ),
-    labelLarge = TextStyle(
+    labelLarge = TextStyle( // Label/Default 15 SemiBold
+        fontFamily = FontFamily.Default,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 15.sp,
+        lineHeight = 20.sp
+    ),
+    labelMedium = TextStyle( // Label/Small 13 SemiBold
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.SemiBold,
         fontSize = 13.sp,
         lineHeight = 18.sp
     ),
-    labelMedium = TextStyle(
+    labelSmall = TextStyle( // Overline 12 SemiBold, letterSpacing besar
         fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp
-    ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 10.sp,
-        lineHeight = 14.sp
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
+        letterSpacing = 1.2.sp
     )
 )
