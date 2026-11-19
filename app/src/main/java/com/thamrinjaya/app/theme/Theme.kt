@@ -17,13 +17,15 @@ private val LightColorScheme = lightColorScheme(
     onPrimaryContainer = Slate900,
     secondary = Slate700,
     onSecondary = White,
-    background = White,
+    background = PageBackground,
     onBackground = Slate900,
     surface = White,
     onSurface = Slate900,
-    surfaceVariant = Slate50,
+    surfaceVariant = Slate100,
     onSurfaceVariant = Slate700,
-    outline = Slate200
+    outline = Slate200,
+    error = ErrorColor,
+    onError = White
 )
 
 @Composable
@@ -36,7 +38,7 @@ fun ThamrinJayaTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = White.toArgb()
+            window.statusBarColor = PageBackground.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
         }
     }

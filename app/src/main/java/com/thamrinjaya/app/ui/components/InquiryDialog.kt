@@ -1,8 +1,5 @@
 package com.thamrinjaya.app.ui.components
 
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -10,9 +7,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +23,7 @@ fun InquiryDialog(
     companyName: String,
     whatsappNumber: String,
     initialProduct: String = "",
+    // Dipertahankan untuk kompatibilitas pemanggil; di v2 tombol kirim selalu hitam.
     accentColor: Color = Slate900,
     onDismissRequest: () -> Unit
 ) {
@@ -54,21 +50,23 @@ fun InquiryDialog(
             ) {
                 Text(
                     text = "FORMULIR PERMINTAAN PENAWARAN",
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Bold,
+                    fontSize = 12.sp,
+                    fontWeight = FontWeight.SemiBold,
                     color = Slate500,
-                    letterSpacing = 0.5.sp
+                    letterSpacing = 1.2.sp
                 )
                 Text(
                     text = companyName,
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Slate900
+                    fontWeight = FontWeight.SemiBold,
+                    color = Slate900,
+                    modifier = Modifier.padding(top = 4.dp)
                 )
                 Text(
                     text = "Kirimkan rincian kebutuhan Anda untuk penawaran resmi via WhatsApp tim sales:",
-                    fontSize = 12.sp,
+                    fontSize = 14.sp,
                     color = Slate600,
+                    lineHeight = 20.sp,
                     modifier = Modifier.padding(top = 4.dp, bottom = 16.dp)
                 )
 
@@ -77,10 +75,11 @@ fun InquiryDialog(
                     label = "Nama Lengkap *",
                     placeholder = "Contoh: Budi Santoso",
                     value = fullName,
+                    isError = showError && fullName.isBlank(),
                     onValueChange = { fullName = it }
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // Phone
                 InquiryTextField(
@@ -88,10 +87,11 @@ fun InquiryDialog(
                     placeholder = "0812-XXXX-XXXX",
                     value = phone,
                     keyboardType = KeyboardType.Phone,
+                    isError = showError && phone.isBlank(),
                     onValueChange = { phone = it }
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // Brand
                 InquiryTextField(
@@ -101,7 +101,7 @@ fun InquiryDialog(
                     onValueChange = { companyOrBrand = it }
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // Product & Qty
                 InquiryTextField(
@@ -111,7 +111,7 @@ fun InquiryDialog(
                     onValueChange = { productAndQty = it }
                 )
 
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = Modifier.height(12.dp))
 
                 // Notes
                 InquiryTextField(
@@ -124,12 +124,21 @@ fun InquiryDialog(
                 )
 
                 if (showError) {
-                    Text(
-                        text = "Mohon lengkapi Nama dan Nomor WhatsApp",
-                        color = Color.Red,
-                        fontSize = 11.sp,
-                        modifier = Modifier.padding(top = 8.dp)
-                    )
+                    Surface(
+                        shape = RoundedCornerShape(12.dp),
+                        color = ErrorBg,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 12.dp)
+                    ) {
+                        Text(
+                            text = "Mohon lengkapi Nama dan Nomor WhatsApp",
+                            color = ErrorColor,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Medium,
+                            modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp)
+                        )
+                    }
                 }
 
                 Spacer(modifier = Modifier.height(18.dp))
@@ -140,8 +149,10 @@ fun InquiryDialog(
                 ) {
                     OutlinedButton(
                         onClick = onDismissRequest,
-                        modifier = Modifier.weight(1f),
-                        shape = RoundedCornerShape(8.dp)
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(48.dp),
+                        shape = RoundedCornerShape(12.dp)
                     ) {
                         Text(text = "Batal", color = Slate700)
                     }
@@ -164,13 +175,22 @@ fun InquiryDialog(
                                 onDismissRequest()
                             }
                         },
-                        modifier = Modifier.weight(1.5f),
-                        shape = RoundedCornerShape(8.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = accentColor)
+                        modifier = Modifier
+                            .weight(1.5f)
+                            .height(48.dp),
+                        shape = RoundedCornerShape(12.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = Slate900)
                     ) {
-                        Text(text = "Kirim WA ↗", color = White, fontWeight = FontWeight.SemiBold)
+                        Text(text = "Kirim via WhatsApp", color = White, fontWeight = FontWeight.SemiBold, fontSize = 13.sp)
                     }
                 }
+
+                Text(
+                    text = "Respon < 15 menit pada hari kerja.",
+                    fontSize = 12.sp,
+                    color = Slate500,
+                    modifier = Modifier.padding(top = 12.dp)
+                )
             }
         }
     }
@@ -184,30 +204,34 @@ private fun InquiryTextField(
     singleLine: Boolean = true,
     minLines: Int = 1,
     keyboardType: KeyboardType = KeyboardType.Text,
+    isError: Boolean = false,
     onValueChange: (String) -> Unit
 ) {
     Column {
         Text(
             text = label,
-            fontSize = 12.sp,
+            fontSize = 13.sp,
             fontWeight = FontWeight.SemiBold,
-            color = Slate800,
-            modifier = Modifier.padding(bottom = 4.dp)
+            color = if (isError) ErrorColor else Slate900,
+            modifier = Modifier.padding(bottom = 6.dp)
         )
         OutlinedTextField(
             value = value,
             onValueChange = onValueChange,
-            placeholder = { Text(text = placeholder, fontSize = 12.sp, color = Slate400) },
+            placeholder = { Text(text = placeholder, fontSize = 14.sp, color = Slate400) },
             singleLine = singleLine,
             minLines = minLines,
+            isError = isError,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType),
             modifier = Modifier.fillMaxWidth(),
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(12.dp),
             colors = OutlinedTextFieldDefaults.colors(
-                focusedBorderColor = Slate800,
+                focusedBorderColor = Slate900,
                 unfocusedBorderColor = Slate200,
+                errorBorderColor = ErrorColor,
                 focusedContainerColor = White,
-                unfocusedContainerColor = Slate50
+                unfocusedContainerColor = White,
+                errorContainerColor = ErrorBg
             )
         )
     }

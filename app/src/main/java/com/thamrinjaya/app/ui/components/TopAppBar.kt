@@ -10,7 +10,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -22,7 +21,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.thamrinjaya.app.R
 import com.thamrinjaya.app.theme.*
 
 @Composable
@@ -33,12 +31,13 @@ fun MainTopBar(
     showBackButton: Boolean = false,
     onBackClick: () -> Unit = {},
     onLogoClick: (() -> Unit)? = null,
+    subtitleColor: Color = Slate500,
     onMenuClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(64.dp)
+            .height(65.dp)
             .background(White)
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
@@ -57,17 +56,22 @@ fun MainTopBar(
                 )
         ) {
             if (showBackButton) {
-                IconButton(
-                    onClick = onBackClick,
-                    modifier = Modifier.size(36.dp)
+                Box(
+                    modifier = Modifier
+                        .size(40.dp)
+                        .clip(RoundedCornerShape(12.dp))
+                        .background(Slate100)
+                        .clickable { onBackClick() },
+                    contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Kembali",
-                        tint = Slate800
+                        tint = Slate900,
+                        modifier = Modifier.size(20.dp)
                     )
                 }
-                Spacer(modifier = Modifier.width(6.dp))
+                Spacer(modifier = Modifier.width(10.dp))
             }
 
             if (logoResId != null) {
@@ -111,39 +115,28 @@ fun MainTopBar(
                     text = subtitle.uppercase(),
                     fontSize = 10.sp,
                     fontWeight = FontWeight.SemiBold,
-                    color = Slate500,
-                    letterSpacing = 0.5.sp,
+                    color = subtitleColor,
+                    letterSpacing = 1.sp,
                     maxLines = 1
                 )
             }
         }
 
+        // Tombol menu v2: kotak abu lembut radius 12, ikon Menu saja tanpa teks.
         Box(
             modifier = Modifier
-                .clip(RoundedCornerShape(8.dp))
-                .border(1.dp, Slate200, RoundedCornerShape(8.dp))
-                .background(White)
-                .clickable { onMenuClick() }
-                .padding(horizontal = 10.dp, vertical = 7.dp),
+                .size(40.dp)
+                .clip(RoundedCornerShape(12.dp))
+                .background(Slate100)
+                .clickable { onMenuClick() },
             contentAlignment = Alignment.Center
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(4.dp)
-            ) {
-                Icon(
-                    imageVector = Icons.Default.Menu,
-                    contentDescription = "Menu Switcher",
-                    modifier = Modifier.size(16.dp),
-                    tint = Slate800
-                )
-                Text(
-                    text = "Menu",
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    color = Slate800
-                )
-            }
+            Icon(
+                imageVector = Icons.Default.Menu,
+                contentDescription = "Menu Switcher",
+                modifier = Modifier.size(20.dp),
+                tint = Slate900
+            )
         }
     }
 }

@@ -5,6 +5,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Chat
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -22,6 +27,8 @@ fun BottomContactBar(
     onWhatsAppClick: () -> Unit,
     onPhoneClick: () -> Unit,
     onMapClick: () -> Unit,
+    // Dipertahankan untuk kompatibilitas pemanggil; di v2 tombol WhatsApp
+    // selalu memakai hijau WhatsApp resmi, bukan aksen unit.
     accentColor: Color = Slate900,
     modifier: Modifier = Modifier
 ) {
@@ -38,60 +45,93 @@ fun BottomContactBar(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // WhatsApp Button
+            // WhatsApp Button — hijau #15803D + ikon chat
             Box(
                 modifier = Modifier
                     .weight(1.8f)
-                    .height(44.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .background(accentColor)
+                    .height(48.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(WhatsAppGreen)
                     .clickable { onWhatsAppClick() },
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "💬 WhatsApp Sales",
-                    color = White,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.SemiBold
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Chat,
+                        contentDescription = null,
+                        tint = White,
+                        modifier = Modifier.size(18.dp)
+                    )
+                    Text(
+                        text = "WhatsApp",
+                        color = White,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
             }
 
             // Phone Button
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .height(44.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .border(1.dp, Slate200, RoundedCornerShape(8.dp))
+                    .height(48.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .border(1.dp, Slate200, RoundedCornerShape(12.dp))
                     .background(White)
                     .clickable { onPhoneClick() },
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "📞 Telp",
-                    color = Slate800,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Phone,
+                        contentDescription = null,
+                        tint = Slate900,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = "Telp",
+                        color = Slate900,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
             }
 
             // Location Button
             Box(
                 modifier = Modifier
                     .weight(1f)
-                    .height(44.dp)
-                    .clip(RoundedCornerShape(8.dp))
-                    .border(1.dp, Slate200, RoundedCornerShape(8.dp))
+                    .height(48.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .border(1.dp, Slate200, RoundedCornerShape(12.dp))
                     .background(White)
                     .clickable { onMapClick() },
                 contentAlignment = Alignment.Center
             ) {
-                Text(
-                    text = "📍 Lokasi",
-                    color = Slate800,
-                    fontSize = 13.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.LocationOn,
+                        contentDescription = null,
+                        tint = Slate900,
+                        modifier = Modifier.size(16.dp)
+                    )
+                    Text(
+                        text = "Lokasi",
+                        color = Slate900,
+                        fontSize = 13.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+                }
             }
         }
     }
