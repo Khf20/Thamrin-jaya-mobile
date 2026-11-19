@@ -1,0 +1,162 @@
+[
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_globalindo.webp.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/globalindo.webp"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_tp_media_promosi.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_tp_media_promosi.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_maxtech.webp.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/maxtech.webp"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_service_sinarjaya.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/service_sinarjaya.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_service_globalindo.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/service_globalindo.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_mp_mailer_box.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_mp_mailer_box.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_hte_sachet_packaging.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_hte_sachet_packaging.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_ic_launcher.xml.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/ic_launcher.xml"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_hero_maxtech.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/hero_maxtech.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_sj_tipping_paper.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_sj_tipping_paper.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_mx_spare_parts.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_mx_spare_parts.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_gl_folding_carton.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_gl_folding_carton.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_tp_kartu_nama.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_tp_kartu_nama.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_hero_rotopack.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/hero_rotopack.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_service_maxtech.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/service_maxtech.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_multipack.webp.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/multipack.webp"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_service_multipack.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/service_multipack.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_hterootopack.webp.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/hterootopack.webp"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_hte_roll_packaging.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_hte_roll_packaging.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_tp_cetak_koper.png.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_tp_cetak_koper.png"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_gl_paper_sleeve.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_gl_paper_sleeve.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_sinarjaya.webp.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/sinarjaya.webp"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_hero_globalindo.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/hero_globalindo.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_sj_plug_wrap.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_sj_plug_wrap.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_hero_multipack.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/hero_multipack.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_logo_thamrin_jaya.webp.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/logo_thamrin_jaya.webp"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_mp_karton_partisi.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_mp_karton_partisi.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_gl_custom_packaging.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_gl_custom_packaging.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_service_topprinting.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/service_topprinting.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_logo_tj.jpeg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/logo_tj.jpeg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_service_rotopack.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/service_rotopack.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_mx_mesin_produksi.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_mx_mesin_produksi.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_sj_cigarette_paper.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_sj_cigarette_paper.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_hero_sinarjaya.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/hero_sinarjaya.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_mx_dukungan_teknis.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_mx_dukungan_teknis.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_topprintingjaya.webp.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/topprintingjaya.webp"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_hte_standing_pouch.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_hte_standing_pouch.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_mp_corrugated_box.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_mp_corrugated_box.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_prod_tp_brosur_katalog.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/prod_tp_brosur_katalog.jpg"
+    },
+    {
+        "merged": "com.thamrinjaya.app-debug-4:/drawable_hero_topprinting.jpg.flat",
+        "source": "com.thamrinjaya.app-main-6:/drawable/hero_topprinting.jpg"
+    }
+]
