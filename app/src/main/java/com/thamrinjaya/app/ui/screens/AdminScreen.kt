@@ -32,7 +32,7 @@ import com.thamrinjaya.app.theme.*
 
 private const val PREF_NAME = "thamrin_admin_pref"
 private const val KEY_SERVER_URL = "server_admin_url"
-private const val DEFAULT_URL = "http://172.14.5.194:8000/admin"
+private const val DEFAULT_URL = "https://thamrin-jaya-admin-mobile.onrender.com/admin"
 
 @SuppressLint("SetJavaScriptEnabled")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -254,7 +254,7 @@ fun AdminScreen(
                         label = { Text("URL Server Admin", fontSize = 11.sp) }
                     )
                     Text(
-                        text = "Pilihan cepat:\n• Wi-Fi Laptop: http://172.14.5.194:8000/admin\n• Emulator Android: http://10.0.2.2:8000/admin\n• Cloudflare Tunnel: https://.../admin",
+                        text = "Pilihan cepat:\n• Online (Render): https://thamrin-jaya-admin-mobile.onrender.com/admin\n• Wi-Fi Laptop: http://172.14.5.194:8000/admin\n• Emulator Android: http://10.0.2.2:8000/admin",
                         fontSize = 11.sp,
                         color = Slate500,
                         lineHeight = 16.sp
