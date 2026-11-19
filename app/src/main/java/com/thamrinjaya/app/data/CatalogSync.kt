@@ -4,6 +4,7 @@ import com.thamrinjaya.app.model.Company
 import com.thamrinjaya.app.model.Product
 import com.thamrinjaya.app.model.ProductionStep
 import com.thamrinjaya.app.model.QualityPillar
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -32,13 +33,36 @@ object CatalogSync {
         // Server gratis bisa butuh waktu untuk bangun, jadi dicoba sampai
         // 3 kali dengan jeda. Berhasil sekali saja sudah cukup.
         repeat(3) { attempt ->
-            val merged = runCatching { fetchAndMerge() }.getOrNull()
-            if (merged != null) {
-                ThamrinJayaData.applyCatalog(merged)
-                return
-            }
+            if (attemptSync()) return
             if (attempt < 2) delay(4_000)
         }
+    }
+
+    /**
+     * Cek berkala selama aplikasi terbuka: setiap beberapa menit mengambil
+     * katalog lagi dari server, supaya perubahan di admin tampil sendiri
+     * tanpa aplikasi harus ditutup-buka. Berhenti otomatis saat aplikasi
+     * ditutup (coroutine-nya dibatalkan).
+     */
+    suspend fun syncPeriodically(intervalMillis: Long = 180_000L) {
+        while (true) {
+            delay(intervalMillis)
+            attemptSync()
+        }
+    }
+
+    /** Satu kali percobaan ambil + gabung. True bila data server diterapkan. */
+    private suspend fun attemptSync(): Boolean {
+        val merged = try {
+            fetchAndMerge()
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            null
+        }
+        if (merged == null) return false
+        ThamrinJayaData.applyCatalog(merged)
+        return true
     }
 
     private suspend fun fetchAndMerge(): List<Company>? = withContext(Dispatchers.IO) {

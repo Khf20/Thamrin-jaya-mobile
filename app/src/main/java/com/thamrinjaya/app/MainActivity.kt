@@ -39,6 +39,11 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(Unit) {
                     CatalogSync.syncFromServer()
                 }
+                // Cek berkala tiap 3 menit selama aplikasi terbuka: perubahan
+                // di admin tampil sendiri tanpa aplikasi ditutup-buka.
+                LaunchedEffect(Unit) {
+                    CatalogSync.syncPeriodically()
+                }
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = PageBackground
