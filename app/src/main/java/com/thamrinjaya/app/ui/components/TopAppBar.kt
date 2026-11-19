@@ -34,11 +34,14 @@ fun MainTopBar(
     subtitleColor: Color = Slate500,
     onMenuClick: () -> Unit
 ) {
+    // Diberi ruang untuk status bar HP (karena aplikasi edge-to-edge), supaya logo
+    // dan judul tidak tertutup jam/ikon baterai. Latar putih tetap dicat sampai ke atas.
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(65.dp)
             .background(White)
+            .windowInsetsPadding(WindowInsets.statusBars)
+            .height(65.dp)
             .padding(horizontal = 16.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween

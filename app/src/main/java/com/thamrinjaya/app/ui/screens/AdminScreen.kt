@@ -33,6 +33,7 @@ import com.thamrinjaya.app.theme.*
 private const val PREF_NAME = "thamrin_admin_pref"
 private const val KEY_SERVER_URL = "server_admin_url"
 private const val DEFAULT_URL = "https://thamrin-jaya-admin-mobile.onrender.com/admin"
+private const val OLD_DEFAULT_URL = "http://172.14.5.194:8000/admin"
 
 @SuppressLint("SetJavaScriptEnabled")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +45,15 @@ fun AdminScreen(
     val prefs = remember { context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE) }
 
     var currentUrl by remember {
-        mutableStateOf(prefs.getString(KEY_SERVER_URL, DEFAULT_URL) ?: DEFAULT_URL)
+        // Migrasi alamat: alamat bawaan lama (IP Wi-Fi laptop) yang tersimpan dari
+        // pemakaian sebelum hosting online diganti otomatis ke alamat Render.
+        // Alamat khusus lain yang pernah disimpan pengguna tidak diubah.
+        val saved = prefs.getString(KEY_SERVER_URL, null)
+        val resolved = if (saved == null || saved == OLD_DEFAULT_URL) DEFAULT_URL else saved
+        if (resolved != saved) {
+            prefs.edit().putString(KEY_SERVER_URL, resolved).apply()
+        }
+        mutableStateOf(resolved)
     }
     var showSettingsDialog by remember { mutableStateOf(false) }
     var tempUrlInput by remember { mutableStateOf(currentUrl) }
@@ -84,7 +93,11 @@ fun AdminScreen(
 
     Scaffold(
         topBar = {
-            Column {
+            Column(
+                modifier = Modifier
+                    .background(Slate900)
+                    .windowInsetsPadding(WindowInsets.statusBars)
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()

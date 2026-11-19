@@ -36,6 +36,7 @@ fun BottomContactBar(
         modifier = modifier
             .fillMaxWidth()
             .background(White)
+            .windowInsetsPadding(WindowInsets.navigationBars)
             .border(width = 1.dp, color = Slate200)
             .padding(horizontal = 16.dp, vertical = 10.dp),
         color = White
