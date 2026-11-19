@@ -1,4 +1,4 @@
-#Fri Nov 20 00:17:21 WIB 2026
+#Fri Nov 20 00:43:49 WIB 2026
 base.0=C\:\\Thamrin-jaya-mobile\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Thamrin-jaya-mobile\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Thamrin-jaya-mobile\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
