@@ -32,7 +32,8 @@ import com.thamrinjaya.app.theme.*
 
 private const val PREF_NAME = "thamrin_admin_pref"
 private const val KEY_SERVER_URL = "server_admin_url"
-private const val DEFAULT_URL = "http://172.14.5.194:8000/admin"
+private const val DEFAULT_URL = "https://thamrin-jaya-admin-mobile.onrender.com/admin"
+private const val OLD_DEFAULT_URL = "http://172.14.5.194:8000/admin"
 
 @SuppressLint("SetJavaScriptEnabled")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +45,15 @@ fun AdminScreen(
     val prefs = remember { context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE) }
 
     var currentUrl by remember {
-        mutableStateOf(prefs.getString(KEY_SERVER_URL, DEFAULT_URL) ?: DEFAULT_URL)
+        // Migrasi alamat: alamat bawaan lama (IP Wi-Fi laptop) yang tersimpan dari
+        // pemakaian sebelum hosting online diganti otomatis ke alamat Render.
+        // Alamat khusus lain yang pernah disimpan pengguna tidak diubah.
+        val saved = prefs.getString(KEY_SERVER_URL, null)
+        val resolved = if (saved == null || saved == OLD_DEFAULT_URL) DEFAULT_URL else saved
+        if (resolved != saved) {
+            prefs.edit().putString(KEY_SERVER_URL, resolved).apply()
+        }
+        mutableStateOf(resolved)
     }
     var showSettingsDialog by remember { mutableStateOf(false) }
     var tempUrlInput by remember { mutableStateOf(currentUrl) }
@@ -84,7 +93,11 @@ fun AdminScreen(
 
     Scaffold(
         topBar = {
-            Column {
+            Column(
+                modifier = Modifier
+                    .background(Slate900)
+                    .windowInsetsPadding(WindowInsets.statusBars)
+            ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -253,7 +266,7 @@ fun AdminScreen(
                         label = { Text("URL Server Admin", fontSize = 11.sp) }
                     )
                     Text(
-                        text = "Pilihan cepat:\n• Wi-Fi Laptop: http://172.14.5.194:8000/admin\n• Emulator Android: http://10.0.2.2:8000/admin\n• Cloudflare Tunnel: https://.../admin",
+                        text = "Pilihan cepat:\n• Online (Render): https://thamrin-jaya-admin-mobile.onrender.com/admin\n• Wi-Fi Laptop: http://172.14.5.194:8000/admin\n• Emulator Android: http://10.0.2.2:8000/admin",
                         fontSize = 11.sp,
                         color = Slate500,
                         lineHeight = 16.sp
