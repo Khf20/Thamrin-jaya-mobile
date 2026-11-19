@@ -5,6 +5,9 @@ import com.thamrinjaya.app.model.Company
 import com.thamrinjaya.app.model.Product
 import com.thamrinjaya.app.model.ProductionStep
 import com.thamrinjaya.app.model.QualityPillar
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import com.thamrinjaya.app.theme.*
 
 object ThamrinJayaData {
@@ -42,7 +45,7 @@ object ThamrinJayaData {
         )
     )
 
-    val companies: List<Company> = listOf(
+    private val bundledCompanies: List<Company> = listOf(
         Company(
             id = "globalindo",
             number = "01",
@@ -682,6 +685,24 @@ object ThamrinJayaData {
             )
         )
     )
+
+    /**
+     * Katalog yang sedang tampil di aplikasi. Awalnya data tertanam
+     * (bundledCompanies); diganti hasil dari server bila sinkronisasi
+     * CatalogSync berhasil. Berupa state Compose supaya semua layar
+     * otomatis menggambar ulang begitu data server masuk.
+     */
+    var companies: List<Company> by mutableStateOf(bundledCompanies)
+        private set
+
+    /** Data tertanam asli — alas data visual (logo, foto, warna aksen) saat
+     *  CatalogSync menggabungkan isi dari server. */
+    fun bundled(): List<Company> = bundledCompanies
+
+    /** Dipanggil CatalogSync setelah data server berhasil diambil. */
+    fun applyCatalog(remote: List<Company>) {
+        companies = remote
+    }
 
     fun getCompany(id: String): Company? = companies.find { it.id == id }
 }

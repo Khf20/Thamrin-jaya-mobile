@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.thamrinjaya.app.data.CatalogSync
 import com.thamrinjaya.app.navigation.Screen
 import com.thamrinjaya.app.theme.ThamrinJayaTheme
 import com.thamrinjaya.app.theme.PageBackground
@@ -32,6 +33,12 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ThamrinJayaTheme {
+                // Ambil katalog terbaru dari server admin saat aplikasi dibuka.
+                // Kalau gagal (tidak ada internet / server sedang bangun),
+                // aplikasi tetap memakai data tertanam — tidak ada layar kosong.
+                LaunchedEffect(Unit) {
+                    CatalogSync.syncFromServer()
+                }
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = PageBackground
